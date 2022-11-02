@@ -22,20 +22,25 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       console.log(currentUser);
       setUser(currentUser);
+      setLoading(false)
     });
 
     return unsubscribe;
   }, []);
 
   const createUser = (email, password) => {
+    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
   const signInUser = (email, password) => {
+    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  const googleSignIn = () => signInWithPopup(auth, googleProvider);
+  const googleSignIn = () =>{
+    return signInWithPopup(auth, googleProvider)
+  };
 
   const value = {
     user,
